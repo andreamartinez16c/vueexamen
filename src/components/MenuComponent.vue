@@ -16,10 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">Departamentos</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/create">Create</router-link>
+            <router-link class="nav-link" to="/">Cubos</router-link>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -29,20 +26,37 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Departamentos
+              Marcas
             </a>
             <ul class="dropdown-menu">
-              <li v-for="departamento in departamentos" :key="departamento">
-                <router-link
-                  class="dropdown-item"
-                  :to="'/detalles/' + departamento.idDepartamento"
-                  >{{ departamento.nombre }}</router-link
-                >
+              <li v-for="marca in marcas" :key="marca">
+                <router-link class="dropdown-item" :to="'/cuboMarca/' + marca">{{
+                  marca
+                }}</router-link>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/seguridad">Seguridad</router-link>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Seguridad
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <router-link class="dropdown-item" :to="'/login'">Log In</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" :to="'/registro'">Registrarse</router-link>
+              </li>
+              <li>
+                <router-link class="dropdown-item" :to="'/cerrasesion'">Cerrar Sesion</router-link>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
@@ -51,11 +65,24 @@
 </template>
 
 <script>
+import ServiceCubos from "../services/ServiceCubos";
+const service = new ServiceCubos();
 
 export default {
   name: "MenuDepartamento",
+  data() {
+    return {
+      marcas: [],
+      status: false,
+    };
+  },
+  mounted() {
+    service.getMarcas().then((result) => {
+      this.marcas = result;
+      this.status = true;
+    });
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,5 +1,5 @@
 var Global={
-    api: ""
+    apiCubos: "https://apitiendacubos2023.azurewebsites.net/"
 }
 
 export default Global
